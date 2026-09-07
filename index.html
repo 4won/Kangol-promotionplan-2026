@@ -154,7 +154,7 @@
       <div class="grp"><span class="swatch muted"></span>7월내 종료(상세페이지 없음)</div>
       <div class="grp" style="margin-left:12px;"><span class="line-solid"></span>확정</div>
       <div class="grp"><span class="line-dash"></span>논의중</div>
-      <div class="grp" style="margin-left:12px;"><span class="line-today"></span>기준일(2026.08.24)</div>
+      <div class="grp" style="margin-left:12px;"><span class="line-today"></span>기준일(2026.09.07)</div>
     </div>
     <div class="timeline-card">
       <div class="months" id="months"></div>
@@ -183,8 +183,10 @@
   <div id="promoViews"></div>
 
   <footer>
-    출처: Google Drive · '캉골 2026년 온오프 프로모션 계획' 스프레드시트 – 온오프 분리 탭 기준(2026.08.24 업데이트본).<br>
-    부서별 업무지침 중 <span class="src sheet" style="margin:0 2px;">시트</span> 표시는 스프레드시트에 기재된 내용을 그대로 반영한 것이고, <span class="src add" style="margin:0 2px;">제안</span> 표시는 시트에 없어 참고용으로 보충한 항목입니다. 목표 KPI는 매출목표 데이터가 입력되면 반영됩니다.
+    출처: Google Sheets · '캉골 2026년 온오프 프로모션 계획' – 온오프 분리 탭 기준(2026.09.07 동기화).<br>
+    시트: <a href="https://docs.google.com/spreadsheets/d/1fhMghtSqqXPapmT15niJFycYddDkvL1SDlBmuS7lruo/edit" target="_blank" rel="noopener" class="doc-link" style="margin-left:2px;">🔗 원본 시트 열기</a><br>
+    부서별 업무지침 중 <span class="src sheet" style="margin:0 2px;">시트</span> 표시는 스프레드시트에 기재된 내용을 그대로 반영한 것이고, <span class="src add" style="margin:0 2px;">제안</span> 표시는 시트에 없어 참고용으로 보충한 항목입니다. 목표 KPI는 매출목표 데이터가 입력되면 반영됩니다.<br>
+    이 문서는 위 시트를 기초데이터로 생성됩니다. 시트가 갱신된 뒤 최신본이 필요하면 "프로모션 플랜 업데이트해줘"라고 요청하세요.
   </footer>
 </div>
 
@@ -194,7 +196,7 @@ const timelineStart = new Date('2026-05-01');
 const timelineEnd   = new Date('2027-01-31');
 const totalDays = (timelineEnd - timelineStart) / 86400000;
 const pct = d => ((new Date(d) - timelineStart) / 86400000 / totalDays) * 100;
-const TODAY = '2026-08-24'; // 문서 생성 기준일
+const TODAY = '2026-09-07'; // 문서 생성 기준일 (구글시트 최신 동기화 기준)
 
 const noPageEvents = [
   {t:'Green Week', s:'2026-06-05', e:'2026-06-07', st:'confirm', g:'offline'},
@@ -233,8 +235,9 @@ const promos = [
   },
   {
     id:'0803-bts', t:'8/3데이 BTS', laneGroup:'both',
-    s:'2026-08-03', e:'2026-08-31', st:'discuss',
-    dateLabel:'오프라인·온라인 동일 · 8/3~8/31',
+    dual:{offS:'2026-08-03', offE:'2026-08-31', onS:'2026-08-03', onE:'2026-08-31'},
+    offSt:'confirm', onSt:'discuss',
+    dateLabel:'오프라인·온라인 동일 · 8/3~8/31 (오프라인 확정 · 온라인 논의중)',
     benefit:'오프라인: 별도 할인 없이 매장 POP만 운영 / 온라인: 신학기 가방 모음전',
     depts:[
       {n:'오프라인', c:'offline', items:[
@@ -245,7 +248,7 @@ const promos = [
         S('소재 폴더: https://drive.google.com/drive/folders/1wClGJUk8MERkarEhusGlsMxupAkhJCt6?usp=drive_link'),
       ]},
       {n:'마케팅', c:'mkt', items:[S('카카오메시지 / 메타 / 비즈보드(83딜only) / GFA(83딜only)')]},
-      {n:'온라인', c:'online', items:[S('1,2,3day 특가 세팅'), S('신학기 가방 모음전 페이지 운영')]},
+      {n:'온라인', c:'online', items:[S('1,2,3day 특가 세팅'), S('신학기 가방 모음전: https://www.kangolkorea.com/product/list.html?cate_no=970')]},
       {n:'영업MD', c:'salesmd', items:[S('8/18 가방 추가리스트 전달 完')]},
     ]
   },
@@ -268,14 +271,14 @@ const promos = [
     benefit:'UP TO 50%, 기획전 전용 쿠폰 20%',
     depts:[
       {n:'마케팅', c:'mkt', items:[S('메타 / 비즈보드 / GFA')]},
-      {n:'온라인', c:'online', items:[S('배너 제작 및 기획전 세팅(8/19 완료)'), S('2주차 룰렛 이벤트 추가 쿠폰적용 방식 세팅')]},
+      {n:'온라인', c:'online', items:[S('배너 제작 및 기획전 세팅(8/19 완료)'), S('2주차 룰렛 이벤트 추가 쿠폰적용(8/28~)')]},
       {n:'영업MD', c:'salesmd', items:[S('상품리스트 전달 8/13 완료')]},
     ]
   },
   {
     id:'aw-pre-hypebeast', t:'26AW 프리 런칭 – 하입비스트(헤리티지)', laneGroup:'online',
-    s:'2026-09-15', e:'2026-09-17', st:'discuss',
-    dateLabel:'온라인 only · 9/15~ (종료일 시트 미기재, 확인 필요 ⚠️)',
+    s:'2026-09-16', e:'2026-10-21', st:'discuss',
+    dateLabel:'온라인 only · 9/16~10/21',
     benefit:'선런칭 10% 할인(예약배송, TBD) · On only',
     depts:[
       {n:'마케팅', c:'mkt', items:[S('메타 채널 운영')]},
@@ -285,8 +288,8 @@ const promos = [
   {
     id:'aw-launch', t:'26AW 런칭 (ON/OFF 일정 차이)', laneGroup:'both',
     dual:{offS:'2026-09-10', offE:'2026-10-05', onS:'2026-09-08', onE:'2026-10-05'},
-    st:'confirm',
-    dateLabel:'오프라인 9/10~10/5 · 온라인 9/8~10/5 (온라인 선오픈, 확정)',
+    offSt:'confirm', onSt:'discuss',
+    dateLabel:'오프라인 9/10~10/5(확정) · 온라인 9/8~10/5(논의중, 선오픈 예정)',
     kpi:'오프라인 33.7억원 · 온라인 3.8억원',
     benefit:'런칭 기념 신상품 10% 할인 · 쿠폰 중복적용 가능',
     depts:[
@@ -298,8 +301,8 @@ const promos = [
   },
   {
     id:'hongtaejun', t:'홍태준 26AW Release', laneGroup:'online',
-    s:'2026-10-01', e:'2026-10-07', st:'discuss',
-    dateLabel:'온라인 only · 10월 1주차',
+    s:'2026-10-01', e:'2026-10-26', st:'discuss',
+    dateLabel:'온라인 only · 10/1~10/26',
     benefit:'10월 1주차 Release',
     depts:[
       {n:'마케팅', c:'mkt', items:[S('카카오메시지 / 바이럴 / 메타 / GFA / 크리테오')]},
@@ -307,7 +310,7 @@ const promos = [
   },
   {
     id:'fleece-offline', t:'경량/플리스 그룹 런칭 — 오프라인(CRM 쿠폰)', laneGroup:'offline',
-    s:'2026-10-22', e:'2026-11-02', st:'discuss',
+    s:'2026-10-22', e:'2026-11-02', st:'confirm',
     dateLabel:'오프라인 · 10/22~11/2',
     benefit:'CRM 20% 쿠폰 · 최근 1년 구매고객 대상(약 10만명) · 쿠폰 중복적용 불가',
     depts:[
@@ -330,7 +333,7 @@ const promos = [
   },
   {
     id:'more-kangol', t:'MORE KANGOL, MORE BENEFITS', laneGroup:'offline',
-    s:'2026-10-15', e:'2026-11-16', st:'discuss',
+    s:'2026-10-15', e:'2026-11-16', st:'confirm',
     dateLabel:'오프라인 · 10/15~11/16',
     kpi:'49억원',
     benefit:'쿠폰 중복 적용 불가 · 2 ITEM 20% OFF · 3 ITEM 30% OFF',
@@ -342,7 +345,7 @@ const promos = [
   },
   {
     id:'heavy-offline', t:'Heavy Outer 그룹 런칭 — 오프라인(CRM 쿠폰)', laneGroup:'offline',
-    s:'2026-11-05', e:'2026-11-16', st:'discuss',
+    s:'2026-11-05', e:'2026-11-16', st:'confirm',
     dateLabel:'오프라인 · 11/5~11/16',
     benefit:'CRM 20% 쿠폰 · 최근 1년 구매고객 대상(약 10만명) · 쿠폰 중복적용 불가',
     depts:[
@@ -366,8 +369,8 @@ const promos = [
   {
     id:'black-friday', t:'Black Friday (ON/OFF 일정 차이)', laneGroup:'both',
     dual:{offS:'2026-11-26', offE:'2026-12-16', onS:'2026-11-19', onE:'2026-12-16'},
-    st:'discuss',
-    dateLabel:'오프라인 11/26~12/16 · 온라인 11/19~12/16(1주 빠름)',
+    offSt:'confirm', onSt:'discuss',
+    dateLabel:'오프라인 11/26~12/16(확정) · 온라인 11/19~12/16(논의중, 1주 빠름)',
     kpi:'오프라인 30억원 · 온라인 3억원',
     benefit:'신상품 20~30% / 이월상품 40~50%',
     depts:[
@@ -378,8 +381,9 @@ const promos = [
   },
   {
     id:'aw-season-off', t:'AW시즌오프:캉골세일페스타', laneGroup:'both',
-    s:'2026-12-17', e:'2027-01-11', st:'discuss',
-    dateLabel:'오프라인·온라인 동일 · 12/17~1/11',
+    dual:{offS:'2026-12-17', offE:'2027-01-11', onS:'2026-12-17', onE:'2027-01-11'},
+    offSt:'confirm', onSt:'discuss',
+    dateLabel:'오프라인·온라인 동일 · 12/17~1/11 (오프라인 확정 · 온라인 논의중)',
     kpi:'오프라인 35억원 · 온라인 3.5억원',
     benefit:'신상품 30~50% / 이월상품 50~60%',
     depts:[
@@ -430,12 +434,16 @@ monthStarts.forEach(([d,label])=>{
 const barEvents = [];
 noPageEvents.forEach(e=> barEvents.push({t:e.t, s:e.s, e:e.e, st:e.st, barColor:e.g, id:null, laneGroupKey:e.g}));
 promos.forEach(p=>{
-  if(p.dual){
-    barEvents.push({t:p.t, s:p.dual.offS, e:p.dual.offE, st:p.st, barColor:'offline', id:p.id, laneGroupKey:p.laneGroup});
-    barEvents.push({t:p.t, s:p.dual.onS,  e:p.dual.onE,  st:p.st, barColor:'online',  id:p.id, laneGroupKey:p.laneGroup});
+  if(p.laneGroup==='both'){
+    // both-채널 프로모션은 항상 오프라인/온라인 막대 2개로 분리해 채널별 상태(확정/논의중)를 정확히 표시
+    const off = p.dual ? {s:p.dual.offS, e:p.dual.offE} : {s:p.s, e:p.e};
+    const on  = p.dual ? {s:p.dual.onS,  e:p.dual.onE}  : {s:p.s, e:p.e};
+    const offSt = p.offSt || p.st;
+    const onSt  = p.onSt  || p.st;
+    barEvents.push({t:p.t, s:off.s, e:off.e, st:offSt, barColor:'offline', id:p.id, laneGroupKey:'both'});
+    barEvents.push({t:p.t, s:on.s,  e:on.e,  st:onSt,  barColor:'online',  id:p.id, laneGroupKey:'both'});
   } else {
-    barEvents.push({t:p.t, s:p.s, e:p.e, st:p.st, barColor:p.laneGroup==='online'?'online':(p.laneGroup==='offline'?'offline':'offline'), id:p.id, laneGroupKey:p.laneGroup});
-    // both-group single-date events: alternate main color as offline for readability, still one bar
+    barEvents.push({t:p.t, s:p.s, e:p.e, st:p.st, barColor:p.laneGroup, id:p.id, laneGroupKey:p.laneGroup});
   }
 });
 const groups = [
@@ -667,9 +675,16 @@ promos.forEach(p=>{
 
   const head = document.createElement('div');
   head.className = 'promo-head ' + p.laneGroup;
+  let statusHtml;
+  if(p.laneGroup==='both' && p.offSt && p.onSt && p.offSt!==p.onSt){
+    statusHtml = `<span class="status ${p.offSt}">오프라인 ${p.offSt==='confirm'?'확정':'논의중'}</span> <span class="status ${p.onSt}">온라인 ${p.onSt==='confirm'?'확정':'논의중'}</span>`;
+  } else {
+    const st = p.st || p.offSt || p.onSt;
+    statusHtml = `<span class="status ${st}">${st==='confirm'?'확정':'논의중'}</span>`;
+  }
   head.innerHTML = `
     <span class="chan ${p.laneGroup}">${p.laneGroup==='offline'?'오프라인':p.laneGroup==='online'?'자사몰 ON only':'ON/OFF 동시'}</span>
-    <span class="status ${p.st}">${p.st==='confirm'?'확정':'논의중'}</span>
+    ${statusHtml}
     <h2>${p.t}</h2>
     <div class="dates">${p.dateLabel}</div>
     <div class="benefit">${p.benefit}</div>
