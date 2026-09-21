@@ -154,7 +154,7 @@
       <div class="grp"><span class="swatch muted"></span>7월내 종료(상세페이지 없음)</div>
       <div class="grp" style="margin-left:12px;"><span class="line-solid"></span>확정</div>
       <div class="grp"><span class="line-dash"></span>논의중</div>
-      <div class="grp" style="margin-left:12px;"><span class="line-today"></span>기준일(2026.09.07)</div>
+      <div class="grp" style="margin-left:12px;"><span class="line-today"></span>기준일(2026.09.21)</div>
     </div>
     <div class="timeline-card">
       <div class="months" id="months"></div>
@@ -183,7 +183,7 @@
   <div id="promoViews"></div>
 
   <footer>
-    출처: Google Sheets · '캉골 2026년 온오프 프로모션 계획' – 온오프 분리 탭 기준(2026.09.07 동기화).<br>
+    출처: Google Sheets · '캉골 2026년 온오프 프로모션 계획' – 온오프 분리 탭 기준(2026.09.21 동기화).<br>
     시트: <a href="https://docs.google.com/spreadsheets/d/1fhMghtSqqXPapmT15niJFycYddDkvL1SDlBmuS7lruo/edit" target="_blank" rel="noopener" class="doc-link" style="margin-left:2px;">🔗 원본 시트 열기</a><br>
     부서별 업무지침 중 <span class="src sheet" style="margin:0 2px;">시트</span> 표시는 스프레드시트에 기재된 내용을 그대로 반영한 것이고, <span class="src add" style="margin:0 2px;">제안</span> 표시는 시트에 없어 참고용으로 보충한 항목입니다. 목표 KPI는 매출목표 데이터가 입력되면 반영됩니다.<br>
     이 문서는 위 시트를 기초데이터로 생성됩니다. 시트가 갱신된 뒤 최신본이 필요하면 "프로모션 플랜 업데이트해줘"라고 요청하세요.
@@ -196,7 +196,7 @@ const timelineStart = new Date('2026-05-01');
 const timelineEnd   = new Date('2027-01-31');
 const totalDays = (timelineEnd - timelineStart) / 86400000;
 const pct = d => ((new Date(d) - timelineStart) / 86400000 / totalDays) * 100;
-const TODAY = '2026-09-07'; // 문서 생성 기준일 (구글시트 최신 동기화 기준)
+const TODAY = '2026-09-21'; // 문서 생성 기준일 (구글시트 최신 동기화 기준)
 
 const noPageEvents = [
   {t:'Green Week', s:'2026-06-05', e:'2026-06-07', st:'confirm', g:'offline'},
@@ -310,11 +310,12 @@ const promos = [
   },
   {
     id:'fleece-offline', t:'경량/플리스 그룹 런칭 — 오프라인(CRM 쿠폰)', laneGroup:'offline',
-    s:'2026-10-22', e:'2026-11-02', st:'confirm',
-    dateLabel:'오프라인 · 10/22~11/2',
+    s:'2026-10-08', e:'2026-11-09', st:'confirm',
+    dateLabel:'오프라인 · 10/8~11/9',
     benefit:'CRM 20% 쿠폰 · 최근 1년 구매고객 대상(약 10만명) · 쿠폰 중복적용 불가',
     depts:[
       {n:'마케팅', c:'mkt', items:[S('CRM 메시지 디자인 가이드 전달')]},
+      {n:'오프라인', c:'offline', items:[S('쿠폰 발송')]},
       {n:'상품기획', c:'mdp', items:[S('특정상품 or 그룹 전체 여부 확정'), S('런칭상품 입고 스케쥴 업데이트 — 일정 변경될 수 있음')]},
       {n:'영업MD', c:'salesmd', items:[S('특정상품 or 그룹 전체, CRM 세그먼트, 중복적용 데이터 검증')]},
     ]
@@ -336,20 +337,22 @@ const promos = [
     s:'2026-10-15', e:'2026-11-16', st:'confirm',
     dateLabel:'오프라인 · 10/15~11/16',
     kpi:'49억원',
-    benefit:'쿠폰 중복 적용 불가 · 2 ITEM 20% OFF · 3 ITEM 30% OFF',
+    benefit:'쿠폰 중복 적용 불가 · 2 ITEM 15% OFF · 3 ITEM 20% OFF',
     depts:[
-      {n:'마케팅', c:'mkt', items:[S('프로모션 세부안 미정(시트상 "???") — 확정 필요')]},
+      {n:'마케팅', c:'mkt', items:[A('마케팅 액션 미정 — 확정 필요')]},
       {n:'VMD', c:'vmd', items:[S('POP 제작 세팅')]},
+      {n:'영업', c:'offline', items:[S('프리쿠폰 생성 및 매장 배포')]},
       {n:'영업MD', c:'salesmd', items:[S('가격 세팅 오퍼레이션 체크')]},
     ]
   },
   {
     id:'heavy-offline', t:'Heavy Outer 그룹 런칭 — 오프라인(CRM 쿠폰)', laneGroup:'offline',
-    s:'2026-11-05', e:'2026-11-16', st:'confirm',
-    dateLabel:'오프라인 · 11/5~11/16',
+    s:'2026-11-05', e:'2026-12-07', st:'confirm',
+    dateLabel:'오프라인 · 11/5~12/7',
     benefit:'CRM 20% 쿠폰 · 최근 1년 구매고객 대상(약 10만명) · 쿠폰 중복적용 불가',
     depts:[
       {n:'마케팅', c:'mkt', items:[S('CRM 메시지 디자인 가이드 전달')]},
+      {n:'오프라인', c:'offline', items:[S('쿠폰 발송')]},
       {n:'상품기획', c:'mdp', items:[S('특정상품 or 그룹 전체 여부 확정'), S('런칭상품 입고 스케쥴 업데이트 — 일정 변경될 수 있음')]},
       {n:'영업MD', c:'salesmd', items:[S('특정상품 or 그룹 전체, CRM 세그먼트, 중복적용 데이터 검증')]},
     ]
