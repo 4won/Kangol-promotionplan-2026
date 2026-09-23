@@ -172,11 +172,6 @@
     <div class="note-row" style="margin-left:0;margin-bottom:22px;">
       시즌 일정과 별개로, 카테고리별 선정된 주력상품 그룹의 <b>출고·게시·릴리즈 일정과 부서별 준비 업무</b>를 정리한 페이지입니다. 날짜성 타임라인이 아니라 상품 그룹별로 묶어서 봅니다.
     </div>
-    <div class="fp-todo">
-      <div class="todo-label">TO DO</div>
-      <div class="todo-text">⚠️ 각 그룹/라인에 대한 이름 정하기</div>
-      <div class="todo-sub">현재는 "레트로 피그먼트 그룹", "슈퍼 라이트 그룹" 등 임시 명칭입니다. 확정 네이밍이 정해지면 아래 카드에도 반영해주세요.</div>
-    </div>
     <div id="fpCategories"></div>
   </div>
 
@@ -319,11 +314,11 @@ const promos = [
     ]
   },
   {
-    id:'fleece-crm', t:'경량/플리스 그룹 런칭 (CRM 고객대상) — 온오프 공통', laneGroup:'both',
+    id:'fleece-crm', t:'경량/플리스 그룹 주력 (CRM 고객대상) — 온오프 공통', laneGroup:'both', combinedBar:true,
     dual:{offS:'2026-10-08', offE:'2026-11-09', onS:'2026-10-08', onE:'2026-11-09'},
-    offSt:'confirm', onSt:'discuss',
-    dateLabel:'온오프 공통 · 10/8~11/9 (오프라인 확정 · 온라인 논의중)',
-    benefit:'오프라인: CRM 20% 쿠폰(최근 1년 구매고객 약 10만명, 중복적용 불가) · 온라인: 런칭 기념 10% 할인(쿠폰 중복적용 가능)',
+    offSt:'confirm', onSt:'confirm',
+    dateLabel:'온오프 공통 · 10/8~11/9 (확정)',
+    benefit:'CRM 20% 쿠폰 · 최근 1년 구매고객 대상(약 10만명) · 쿠폰 중복적용 불가',
     depts:[
       {n:'마케팅(CRM)', c:'mkt', items:[S('CRM 메시지 디자인 가이드 전달')]},
       {n:'마케팅(온라인)', c:'mkt', items:[S('메타 / 비즈보드')]},
@@ -347,11 +342,11 @@ const promos = [
     ]
   },
   {
-    id:'heavy-crm', t:'Heavy Outer 그룹 런칭 (CRM 고객대상) — 온오프 공통', laneGroup:'both',
+    id:'heavy-crm', t:'Heavy Outer 그룹 주력 (CRM 고객대상) — 온오프 공통', laneGroup:'both', combinedBar:true,
     dual:{offS:'2026-10-29', offE:'2026-11-30', onS:'2026-10-29', onE:'2026-11-30'},
-    offSt:'confirm', onSt:'discuss',
-    dateLabel:'온오프 공통 · 10/29~11/30 (오프라인 확정 · 온라인 논의중)',
-    benefit:'오프라인: CRM 20% 쿠폰(최근 1년 구매고객 약 10만명, 중복적용 불가) · 온라인: 런칭 기념 10% 할인(쿠폰 중복적용 가능)',
+    offSt:'confirm', onSt:'confirm',
+    dateLabel:'온오프 공통 · 10/29~11/30 (확정)',
+    benefit:'CRM 20% 쿠폰 · 최근 1년 구매고객 대상(약 10만명) · 쿠폰 중복적용 불가',
     depts:[
       {n:'마케팅(CRM)', c:'mkt', items:[S('CRM 메시지 디자인 가이드 전달')]},
       {n:'마케팅(온라인)', c:'mkt', items:[S('메타 / 비즈보드')]},
@@ -429,8 +424,12 @@ monthStarts.forEach(([d,label])=>{
 const barEvents = [];
 noPageEvents.forEach(e=> barEvents.push({t:e.t, s:e.s, e:e.e, st:e.st, barColor:e.g, id:null, laneGroupKey:e.g}));
 promos.forEach(p=>{
-  if(p.laneGroup==='both'){
-    // both-채널 프로모션은 항상 오프라인/온라인 막대 2개로 분리해 채널별 상태(확정/논의중)를 정확히 표시
+  if(p.laneGroup==='both' && p.combinedBar){
+    // 온오프 공통 프로모션(날짜 동일) — 채널별로 막대를 나누지 않고 하나로 표시
+    const off = p.dual ? {s:p.dual.offS, e:p.dual.offE} : {s:p.s, e:p.e};
+    barEvents.push({t:p.t, s:off.s, e:off.e, st:p.offSt||p.st, barColor:'offline', id:p.id, laneGroupKey:'both'});
+  } else if(p.laneGroup==='both'){
+    // 그 외 both-채널 프로모션은 오프라인/온라인 막대 2개로 분리해 채널별 상태(확정/논의중)를 정확히 표시
     const off = p.dual ? {s:p.dual.offS, e:p.dual.offE} : {s:p.s, e:p.e};
     const on  = p.dual ? {s:p.dual.onS,  e:p.dual.onE}  : {s:p.s, e:p.e};
     const offSt = p.offSt || p.st;
@@ -544,8 +543,26 @@ const productImages = {
 
 const featuredCategories = [
   {
-    cat:'가방',
+    cat:'경량/플리스 주력 (CRM / 10/8~)',
     items:[
+      {name:'경량 그룹 (3sty)', off:'오프 출고 9/25, 9/30', on:'온라인 게시 9/20~9/23', release:null,
+        mktAction:'광고 소재(메타/GFA/카플친), 모델컷 등',
+        offlineAction:'매장 주력 가이드 운영',
+        planStatus:'JP8185 / JP8186 / SH7089 — 주력 판매시기 10월',
+        products:[
+          {code:'JP8185', name:'Utility Soft Cloud Down Jacket', sku:3, qty:1800, mkt:false, vmd:true},
+          {code:'JP8186', name:'Utility WMNS Soft Cloud Down Jacket', sku:3, qty:1800, mkt:false, vmd:false},
+          {code:'SH7089', name:'Utility PrimaLoft Shirts', sku:2, qty:1100, mkt:false, vmd:false},
+        ]},
+      {name:'플리스 그룹 (3sty)', off:'오프 출고 9/30, 10/8', on:'온라인 게시 9/16~10/6', release:null,
+        mktAction:'광고 소재(메타/GFA/카플친), 모델컷, 인플 시딩 등',
+        offlineAction:'매장 주력 가이드 운영',
+        planStatus:'JP8571 / BS6146 / RT1820 — 주력 판매시기 10월',
+        products:[
+          {code:'BS6146', name:'Utility Fleece Vest', sku:3, qty:1900, mkt:true, vmd:false},
+          {code:'RT1820', name:'Utility Fleece Half-Zip', sku:3, qty:1850, mkt:true, vmd:true},
+          {code:'JK8571', name:'Reversible Sherpa Jacket', sku:2, qty:1000, mkt:false, vmd:true},
+        ]},
       {name:'레트로 피그먼트 그룹', off:'오프 출고 8/8(토)', on:'온라인 게시 8/11(화)', release:'릴리즈 8/13(목)',
         mktAction:'광고 소재(메타/GFA/카플친), 모델컷, AI 콘텐츠, 인플 시딩 등',
         offlineAction:'매장 주력 가이드 운영',
@@ -564,19 +581,10 @@ const featuredCategories = [
           {code:'TB4046', name:'Super Light Tote Bag', sku:3, qty:2000, mkt:true, vmd:true},
           {code:'TB4047', name:'Super Light Cross Bag', sku:2, qty:1100, mkt:true, vmd:true},
         ]},
-      {name:'리버서블 그룹', off:'오프 출고 8/8(토)', on:'온라인 게시 8/11(화)', release:'릴리즈 8/20(목)',
-        mktAction:'광고 소재(메타/GFA/카플친), 모델컷 등',
-        offlineAction:'매장 주력 가이드 운영',
-        planStatus:'TB4041 / CB3413 — 출고 완료',
-        salesMdAction:'TB4041 리오더 4,000장 진행(추석 전 파샬 + 10/20 납기)',
-        products:[
-          {code:'CB3413', name:'Reversible Check Cross Bag', sku:2, qty:2000, mkt:false, vmd:true},
-          {code:'TB4041', name:'Reversible Check Tote Bag', sku:2, qty:1300, mkt:false, vmd:true},
-        ]},
     ]
   },
   {
-    cat:'의류',
+    cat:'헤비아우터 주력 (CRM / 10/29~)',
     items:[
       {name:'헤비다운 그룹 (4sty)', off:'오프 출고 10/8, 10/15', on:'온라인 게시 10/6', release:null,
         mktAction:'광고 소재(메타/GFA/카플친), 모델컷, 인플 시딩 등',
@@ -588,23 +596,22 @@ const featuredCategories = [
           {code:'OT9591', name:'Utility WMNS Fine Down Jacket', sku:3, qty:2000, mkt:false, vmd:false},
           {code:'OT9589', name:'WMNS Hooded Down', sku:2, qty:1150, mkt:true, vmd:true},
         ]},
-      {name:'경량 그룹 (3sty)', off:'오프 출고 9/25, 9/30', on:'온라인 게시 9/20~9/23', release:null,
+      {name:'퀼트 가방 그룹 (추가 예정)', off:null, on:null, release:null,
+        planStatus:'그룹 상세 미확정 — 추가 예정',
+        products:[]},
+    ]
+  },
+  {
+    cat:'기타',
+    items:[
+      {name:'리버서블 그룹', off:'오프 출고 8/8(토)', on:'온라인 게시 8/11(화)', release:'릴리즈 8/20(목)',
         mktAction:'광고 소재(메타/GFA/카플친), 모델컷 등',
         offlineAction:'매장 주력 가이드 운영',
-        planStatus:'JP8185 / JP8186 / SH7089 — 주력 판매시기 10월',
+        planStatus:'TB4041 / CB3413 — 출고 완료',
+        salesMdAction:'TB4041 리오더 4,000장 진행(추석 전 파샬 + 10/20 납기)',
         products:[
-          {code:'JP8185', name:'Utility Soft Cloud Down Jacket', sku:3, qty:1800, mkt:false, vmd:true},
-          {code:'JP8186', name:'Utility WMNS Soft Cloud Down Jacket', sku:3, qty:1800, mkt:false, vmd:false},
-          {code:'SH7089', name:'Utility PrimaLoft Shirts', sku:2, qty:1100, mkt:false, vmd:false},
-        ]},
-      {name:'플리스 그룹 (3sty)', off:'오프 출고 9/30, 10/8', on:'온라인 게시 9/16~10/6', release:null,
-        mktAction:'광고 소재(메타/GFA/카플친), 모델컷, 인플 시딩 등',
-        offlineAction:'매장 주력 가이드 운영',
-        planStatus:'JP8571 / BS6146 / RT1820 — 주력 판매시기 10월',
-        products:[
-          {code:'BS6146', name:'Utility Fleece Vest', sku:3, qty:1900, mkt:true, vmd:false},
-          {code:'RT1820', name:'Utility Fleece Half-Zip', sku:3, qty:1850, mkt:true, vmd:true},
-          {code:'JK8571', name:'Reversible Sherpa Jacket', sku:2, qty:1000, mkt:false, vmd:true},
+          {code:'CB3413', name:'Reversible Check Cross Bag', sku:2, qty:2000, mkt:false, vmd:true},
+          {code:'TB4041', name:'Reversible Check Tote Bag', sku:2, qty:1300, mkt:false, vmd:true},
         ]},
     ]
   },
