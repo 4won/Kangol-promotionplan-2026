@@ -305,31 +305,32 @@ const promos = [
     dateLabel:'온라인 only · 10/1~10/26',
     benefit:'10월 1주차 Release',
     depts:[
-      {n:'마케팅', c:'mkt', items:[S('카카오메시지 / 바이럴 / 메타 / GFA / 크리테오')]},
+      {n:'마케팅', c:'mkt', items:[S('카카오메시지 / 메타 / GFA / 크리테오 / 인플 시딩 / 바이럴(웹진, 뉴미디어)')]},
     ]
   },
   {
-    id:'fleece-offline', t:'경량/플리스 그룹 런칭 — 오프라인(CRM 쿠폰)', laneGroup:'offline',
-    s:'2026-10-08', e:'2026-11-09', st:'confirm',
-    dateLabel:'오프라인 · 10/8~11/9',
-    benefit:'CRM 20% 쿠폰 · 최근 1년 구매고객 대상(약 10만명) · 쿠폰 중복적용 불가',
+    id:'gangjeolgi-outer', t:'간절기 아우터', laneGroup:'online',
+    s:'2026-09-22', e:'2026-10-11', st:'discuss',
+    dateLabel:'온라인 only · 9/22~10/11',
+    kpi:'1.3억원',
+    benefit:'간절기아우터 모음전 · https://kangolkorea.com/product/list.html?cate_no=1092',
     depts:[
-      {n:'마케팅', c:'mkt', items:[S('CRM 메시지 디자인 가이드 전달')]},
+      {n:'온라인', c:'online', items:[S('기획전 배너 제작 및 세팅')]},
+    ]
+  },
+  {
+    id:'fleece-crm', t:'경량/플리스 그룹 런칭 (CRM 고객대상) — 온오프 공통', laneGroup:'both',
+    dual:{offS:'2026-10-08', offE:'2026-11-09', onS:'2026-10-08', onE:'2026-11-09'},
+    offSt:'confirm', onSt:'discuss',
+    dateLabel:'온오프 공통 · 10/8~11/9 (오프라인 확정 · 온라인 논의중)',
+    benefit:'오프라인: CRM 20% 쿠폰(최근 1년 구매고객 약 10만명, 중복적용 불가) · 온라인: 런칭 기념 10% 할인(쿠폰 중복적용 가능)',
+    depts:[
+      {n:'마케팅(CRM)', c:'mkt', items:[S('CRM 메시지 디자인 가이드 전달')]},
+      {n:'마케팅(온라인)', c:'mkt', items:[S('메타 / 비즈보드')]},
       {n:'오프라인', c:'offline', items:[S('쿠폰 발송')]},
+      {n:'온라인', c:'online', items:[S('기획전 세팅, 할인프로모션 적용')]},
       {n:'상품기획', c:'mdp', items:[S('특정상품 or 그룹 전체 여부 확정'), S('런칭상품 입고 스케쥴 업데이트 — 일정 변경될 수 있음')]},
       {n:'영업MD', c:'salesmd', items:[S('특정상품 or 그룹 전체, CRM 세그먼트, 중복적용 데이터 검증')]},
-    ]
-  },
-  {
-    id:'fleece-online', t:'경량/플리스 선런칭 — 온라인(전고객 10%)', laneGroup:'online',
-    s:'2026-10-15', e:'2026-11-02', st:'discuss',
-    dateLabel:'온라인 · 10/15~11/2',
-    kpi:'3.2억원',
-    benefit:'런칭 기념 10% 할인 · 예약판매, 전고객 대상 · 쿠폰 중복적용 가능',
-    depts:[
-      {n:'마케팅', c:'mkt', items:[S('메타 / 비즈보드')]},
-      {n:'온라인', c:'online', items:[S('기획전 세팅, 할인프로모션 적용')]},
-      {n:'상품기획', c:'mdp', items:[S('런칭상품 입고 스케쥴 업데이트 — 일정 변경될 수 있음')]},
     ]
   },
   {
@@ -346,27 +347,18 @@ const promos = [
     ]
   },
   {
-    id:'heavy-offline', t:'Heavy Outer 그룹 런칭 — 오프라인(CRM 쿠폰)', laneGroup:'offline',
-    s:'2026-11-05', e:'2026-12-07', st:'confirm',
-    dateLabel:'오프라인 · 11/5~12/7',
-    benefit:'CRM 20% 쿠폰 · 최근 1년 구매고객 대상(약 10만명) · 쿠폰 중복적용 불가',
+    id:'heavy-crm', t:'Heavy Outer 그룹 런칭 (CRM 고객대상) — 온오프 공통', laneGroup:'both',
+    dual:{offS:'2026-10-29', offE:'2026-11-30', onS:'2026-10-29', onE:'2026-11-30'},
+    offSt:'confirm', onSt:'discuss',
+    dateLabel:'온오프 공통 · 10/29~11/30 (오프라인 확정 · 온라인 논의중)',
+    benefit:'오프라인: CRM 20% 쿠폰(최근 1년 구매고객 약 10만명, 중복적용 불가) · 온라인: 런칭 기념 10% 할인(쿠폰 중복적용 가능)',
     depts:[
-      {n:'마케팅', c:'mkt', items:[S('CRM 메시지 디자인 가이드 전달')]},
+      {n:'마케팅(CRM)', c:'mkt', items:[S('CRM 메시지 디자인 가이드 전달')]},
+      {n:'마케팅(온라인)', c:'mkt', items:[S('메타 / 비즈보드')]},
       {n:'오프라인', c:'offline', items:[S('쿠폰 발송')]},
+      {n:'온라인', c:'online', items:[S('기획전 세팅, 할인프로모션 적용')]},
       {n:'상품기획', c:'mdp', items:[S('특정상품 or 그룹 전체 여부 확정'), S('런칭상품 입고 스케쥴 업데이트 — 일정 변경될 수 있음')]},
       {n:'영업MD', c:'salesmd', items:[S('특정상품 or 그룹 전체, CRM 세그먼트, 중복적용 데이터 검증')]},
-    ]
-  },
-  {
-    id:'heavy-online', t:'Heavy Outer 선런칭 — 온라인(전고객 10%)', laneGroup:'online',
-    s:'2026-10-29', e:'2026-11-16', st:'discuss',
-    dateLabel:'온라인 · 10/29~11/16',
-    kpi:'2.6억원',
-    benefit:'런칭 기념 10% 할인 · 예약판매, 전고객 대상 · 쿠폰 중복적용 가능',
-    depts:[
-      {n:'마케팅', c:'mkt', items:[S('메타 / 비즈보드')]},
-      {n:'온라인', c:'online', items:[S('기획전 세팅, 할인프로모션 적용')]},
-      {n:'상품기획', c:'mdp', items:[S('런칭상품 입고 스케쥴 업데이트 — 일정 변경될 수 있음')]},
     ]
   },
   {
